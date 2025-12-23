@@ -9,25 +9,25 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+  public UserService(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
-    public User createUser(String name, String email) {
-        User user = User.builder()
-                .name(name)
-                .email(email)
-                .build();
-        return userRepository.save(user);
-    }
+  public User createUser(String name, String email) {
+    User user = User.builder()
+        .name(name)
+        .email(email)
+        .build();
+    return userRepository.save(user);
+  }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+  public List<User> getAllUsers() {
+    return userRepository.findAll();
+  }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
-    }
+  public User getUserById(Long id) {
+    return userRepository.findById(id).orElse(null);
+  }
 }

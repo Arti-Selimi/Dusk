@@ -4,12 +4,74 @@ type User {
     email: String!
 }
 
+type BankAccount {
+  id: ID!
+  accountNumber: ID!
+  name: String!
+  type: String!
+  status: String!
+  currency: String!
+}
+
+type Card {
+    id: ID!
+    cardNumber: ID!
+    cvv: Int!
+    ownerAddress: String!
+    billingAddress: String!
+    brand: String!
+    owner: User!   
+}
+
+type Settings {
+  id: ID!
+  darkMode: Boolean
+  language: String
+  reduceMotion: Boolean
+  emailNotifications: Boolean
+  pushNotifications: Boolean
+  analyticsEnabled: Boolean
+  timezone: String
+}
+  
+
+input CardInput {
+    ownerId: ID
+    accountId: ID
+    ownerAddress: String
+    billingAddress: String
+    brand: String
+}
+
+input BankAccountInput {
+  name: String
+  ownerId: ID!
+  type: String!
+  cardId: ID
+  currency: String!
+}
+
+input SettingsInput {
+  ownerId: ID!
+}
+  
+
 type Query {
     users: [User!]!
     user(id: ID!): User
+    cards: [Card!]!
+    card(cardId: ID, accountId: ID, ownerId: ID): Card
+    bankAccounts: [BankAccount!]!
+    bankAccount(accountId: ID, ownerId: ID, cardId: ID): BankAccount
+    settings(ownerId: ID!): Settings
 }
 
 type Mutation {
-    createUser(name: String!, email: String!): User!
+    createUser(name: String!, email: String!): User
+    createCard(cardDetails: CardInput!): Card
+      ## updateCard(cardDetails: CardInput!): Card!
+    createBankAccount(accountDetails: BankAccountInput!): BankAccount
+      ##updateBankAccount(accountDetails: BankAccountInput!): BankAccount!
+    createSettings(settingsDetails: SettingsInput!): Settings
 }
 

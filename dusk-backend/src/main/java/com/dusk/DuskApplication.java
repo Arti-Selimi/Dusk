@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EntityScan("com.dusk.model")
 public class DuskApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DuskApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(DuskApplication.class, args);
+  }
 
 }
