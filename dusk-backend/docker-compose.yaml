@@ -31,5 +31,6 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/myapp
       SPRING_DATASOURCE_USERNAME: myuser
       SPRING_DATASOURCE_PASSWORD: mypassword
+      JWT_SECRET: your_very_long_and_very_secure_secret_key_2025_0123456789
     depends_on:
       - postgres-db
