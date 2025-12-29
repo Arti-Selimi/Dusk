@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.dusk.service.BankAccountService;
 import com.dusk.dtos.BankAccountInput;
+import com.dusk.dtos.BankAccountResponse;
 import com.dusk.model.BankAccount;
 
 @Controller
@@ -41,5 +42,10 @@ public class BankAccountController {
   @MutationMapping
   public BankAccount createBankAccount(@Argument BankAccountInput accountDetails) {
     return bankAccountService.createBankAccount(accountDetails);
+  }
+
+  @MutationMapping
+  public BankAccountResponse updateBankAccount(@Argument BankAccountInput accountDetails) {
+    return bankAccountService.updateBankAccount(accountDetails);
   }
 }

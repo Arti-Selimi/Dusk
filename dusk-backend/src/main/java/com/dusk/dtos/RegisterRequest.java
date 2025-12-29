@@ -1,5 +1,7 @@
 package com.dusk.dtos;
 
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.NotBlank;
 
 public record RegisterRequest(
@@ -15,5 +17,7 @@ public record RegisterRequest(
 
     @NotBlank(message = "enter an address") String address,
 
-    @NotBlank(message = "enter a billing address") String billingAddress) {
+    @NotBlank(message = "enter a billing address") String billingAddress,
+
+    @NotBlank(message = "enter a date of birth") LocalDateTime birthDate) {
 }
