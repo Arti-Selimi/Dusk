@@ -3,6 +3,7 @@ package com.dusk.controller;
 import com.dusk.model.Card;
 import com.dusk.service.CardService;
 import com.dusk.dtos.CardInput;
+import com.dusk.dtos.CardResponse;
 
 import java.util.List;
 
@@ -41,5 +42,10 @@ public class CardController {
   @MutationMapping
   public Card createCard(@Argument CardInput cardDetails) {
     return cardService.createCard(cardDetails);
+  }
+
+  @MutationMapping
+  public CardResponse updateCard(@Argument CardInput cardDetails) {
+    return cardService.updateCard(cardDetails);
   }
 }

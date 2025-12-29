@@ -1,6 +1,7 @@
 
 package com.dusk.service;
 
+import com.dusk.model.Settings;
 import com.dusk.model.User;
 import com.dusk.repository.UserRepository;
 import com.dusk.security.JwtService;
@@ -21,6 +22,7 @@ public class AuthService {
   private final JwtService jwtService;
 
   public AuthPayload register(RegisterRequest registerRequest) {
+    Settings settings = Settings.builder().build();
     User user = User.builder()
         .email(registerRequest.email())
         .password(passwordEncoder.encode(registerRequest.password()))
@@ -29,14 +31,16 @@ public class AuthService {
         .phoneNumber(registerRequest.phoneNumber())
         .address(registerRequest.address())
         .billingAddress(registerRequest.billingAddress())
+        .birthDate(registerRequest.birthDate())
+        .settings(settings)
         .enabled(true)
         .build();
     User savedUser = userRepository.save(user);
-
     String token = jwtService.generateToken(savedUser.getEmail());
 
     UserResponse userResponse = new UserResponse(savedUser.getId(), savedUser.getEmail(), savedUser.getFirstName(),
-        savedUser.getLastName());
+        savedUser.getLastName(), savedUser.getPhoneNumber(), savedUser.getAddress(), savedUser.getBillingAddress(),
+        savedUser.getBirthDate());
     return new AuthPayload(token, userResponse);
   }
 
@@ -50,8 +54,9 @@ public class AuthService {
 
     String token = jwtService.generateToken(user.getEmail());
 
-    UserResponse userResponse = new UserResponse(user.getId(), user.getEmail(), user.getFirstName(),
-        user.getLastName());
+    UserResponse userResponse = new UserResponse(user.getId(), user.getEmail(), user.getFirstName(), user.getLastName(),
+        user.getAddress(),
+        user.getBillingAddress(), user.getPhoneNumber(), user.getBirthDate());
 
     return new AuthPayload(token, userResponse);
   }

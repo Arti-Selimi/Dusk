@@ -1,8 +1,12 @@
 type User {
-    id: ID!
-    firstName: String!
-    lastName: String!
-    email: String!
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phoneNumber: String
+  address: String
+  billingAddress: String
+  birthDate: String
 }
 
 type BankAccount {
@@ -15,13 +19,13 @@ type BankAccount {
 }
 
 type Card {
-    id: ID!
-    cardNumber: ID!
-    cvv: Int!
-    ownerAddress: String!
-    billingAddress: String!
-    brand: String!
-    owner: User!   
+  id: ID!
+  owner: User!   
+  account: BankAccount!   
+  cardNumber: String!
+  expiryDate: String!
+  brand: String!
+  isActive: Boolean!
 }
 
 type Settings {
@@ -41,33 +45,49 @@ type AuthPayload {
 }
 
 input CardInput {
-    ownerId: ID
-    accountId: ID
-    ownerAddress: String
-    billingAddress: String
-    brand: String
+  cardId: ID
+  ownerId: ID
+  accountId: ID
+  ownerAddress: String
+  billingAddress: String
+  brand: String
+  isActive: Boolean
 }
 
 input BankAccountInput {
+  accountId: ID
   name: String
-  ownerId: ID!
-  type: String!
+  ownerId: ID
+  type: String
   cardId: ID
-  currency: String!
+  currency: String
 }
 
 input SettingsInput {
   ownerId: ID!
 }
 
+input UserInput {
+  id: ID!
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  address: String
+  billingAddress: String
+  birthDate: String
+}
+
 input RegisterInput {
-    email: String!
-    password: String!
-    firstName: String!
-    lastName: String!
-    phoneNumber: String!
-    address: String!
-    billingAddress: String!
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phoneNumber: String!
+  address: String!
+  billingAddress: String!
+  birthDate: String!
 }
 
 input LoginInput {
@@ -76,22 +96,23 @@ input LoginInput {
 }  
 
 type Query {
-    users: [User!]!
-    user(id: ID!): User
-    cards: [Card!]!
-    card(cardId: ID, accountId: ID, ownerId: ID): Card
-    bankAccounts: [BankAccount!]!
-    bankAccount(accountId: ID, ownerId: ID, cardId: ID): BankAccount
-    settings(ownerId: ID!): Settings
+  users: [User!]!
+  user(id: ID!): User
+  cards: [Card!]!
+  card(cardId: ID, accountId: ID, ownerId: ID): Card
+  bankAccounts: [BankAccount!]!
+  bankAccount(accountId: ID, ownerId: ID, cardId: ID): BankAccount
+  settings(ownerId: ID!): Settings
   me: User
 }
 
 type Mutation {
-    createCard(cardDetails: CardInput!): Card
-      ## updateCard(cardDetails: CardInput!): Card!
-    createBankAccount(accountDetails: BankAccountInput!): BankAccount
-      ##updateBankAccount(accountDetails: BankAccountInput!): BankAccount!
-    createSettings(settingsDetails: SettingsInput!): Settings
+  createCard(cardDetails: CardInput!): Card
+  updateCard(cardDetails: CardInput!): Card
+  createBankAccount(accountDetails: BankAccountInput!): BankAccount
+  updateBankAccount(accountDetails: BankAccountInput!): BankAccount
+  createSettings(settingsDetails: SettingsInput!): Settings
+  updateUser(userDetails: UserInput!): User
   login(loginRequest: LoginInput!): AuthPayload!
   register(registerRequest: RegisterInput!): AuthPayload!
 }

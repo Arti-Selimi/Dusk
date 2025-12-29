@@ -10,10 +10,13 @@ import com.dusk.repository.BankAccountRepository;
 import lombok.RequiredArgsConstructor;
 
 import com.dusk.dtos.CardInput;
+import com.dusk.dtos.CardResponse;
+import com.dusk.mapper.CardMapper;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class CardService {
   private final CardRepository cardRepository;
   private final UserRepository userRepository;
   private final BankAccountRepository accountRepository;
+  private final CardMapper cardMapper;
 
   public Card createCard(CardInput cardDetails) {
     User user = userRepository.findById(cardDetails.ownerId())
@@ -36,6 +40,15 @@ public class CardService {
         .build();
 
     return cardRepository.save(card);
+  }
+
+  @Transactional
+  public CardResponse updateCard(CardInput cardDetails) {
+    Card card = cardRepository.findById(cardDetails.cardId()).orElseThrow(() -> new RuntimeException("Card not found"));
+
+    cardMapper.updateCardFromInput(cardDetails, card);
+
+    return cardMapper.toResponse(card);
   }
 
   public List<Card> getAllCards() {

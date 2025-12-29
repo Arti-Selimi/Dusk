@@ -3,13 +3,14 @@ package com.dusk.dtos;
 import java.time.LocalDate;
 
 import com.dusk.enums.CardBrand;
+import com.dusk.model.BankAccount;
+import com.dusk.model.User;
 
 public record CardResponse(
-    Long cardId,
-    Long userId,
-    Long accountId,
-    String maskedCardNumber,
-    String owner,
+    Long id,
+    User owner,
+    BankAccount account,
+    String cardNumber,
     LocalDate expiryDate,
     CardBrand brand,
     boolean isActive) {

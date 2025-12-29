@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.dusk.dtos.BankAccountInput;
+import com.dusk.dtos.BankAccountResponse;
+import com.dusk.mapper.BankAccountMapper;
 import com.dusk.model.BankAccount;
 import com.dusk.model.Card;
 import com.dusk.model.User;
@@ -20,6 +22,7 @@ public class BankAccountService {
   private final BankAccountRepository bankAccountRepository;
   private final UserRepository userRepository;
   private final CardRepository cardRepository;
+  private final BankAccountMapper bankAccountMapper;
 
   public BankAccount createBankAccount(BankAccountInput accountDetails) {
     User owner = userRepository.findById(accountDetails.ownerId())
@@ -37,6 +40,15 @@ public class BankAccountService {
         .build();
 
     return bankAccountRepository.save(bankAccount);
+  }
+
+  public BankAccountResponse updateBankAccount(BankAccountInput accountDetails) {
+    BankAccount account = bankAccountRepository.findById(accountDetails.accountId())
+        .orElseThrow(() -> new RuntimeException());
+
+    bankAccountMapper.updateBankAccountFromInput(accountDetails, account);
+
+    return bankAccountMapper.toResponse(account);
   }
 
   public BankAccount getBankAccount(Long id) {

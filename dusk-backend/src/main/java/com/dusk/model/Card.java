@@ -20,6 +20,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Builder.Default;
 
 @Entity
 @Table(name = "card")
@@ -62,6 +63,10 @@ public class Card {
   @OneToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "account", nullable = false)
   private BankAccount account;
+
+  @Column(name = "is_active")
+  @Default
+  private boolean isActive = true;
 
   @PrePersist
   public void generateCardData() {
