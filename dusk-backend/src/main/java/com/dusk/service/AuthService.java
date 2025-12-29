@@ -31,12 +31,11 @@ public class AuthService {
         .phoneNumber(registerRequest.phoneNumber())
         .address(registerRequest.address())
         .billingAddress(registerRequest.billingAddress())
+        .birthDate(registerRequest.birthDate())
         .settings(settings)
         .enabled(true)
         .build();
     User savedUser = userRepository.save(user);
-    settings.setOwner(savedUser);
-
     String token = jwtService.generateToken(savedUser.getEmail());
 
     UserResponse userResponse = new UserResponse(savedUser.getId(), savedUser.getEmail(), savedUser.getFirstName(),

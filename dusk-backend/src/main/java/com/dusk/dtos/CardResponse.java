@@ -10,8 +10,7 @@ public record CardResponse(
     Long id,
     User owner,
     BankAccount account,
-    String maskedCardNumber,
-    String ownerName,
+    String cardNumber,
     LocalDate expiryDate,
     CardBrand brand,
     boolean isActive) {

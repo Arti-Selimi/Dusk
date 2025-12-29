@@ -12,7 +12,7 @@ import com.dusk.model.Card;
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface CardMapper {
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  void updateCardFromInput(CardInput input, @MappingTarget Card card);
+  void updateCardFromInput(CardInput cardDetails, @MappingTarget Card card);
 
   CardResponse toResponse(Card card);
 }

@@ -13,7 +13,7 @@ import com.dusk.model.BankAccount;
 public interface BankAccountMapper {
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  void updateBankAccountFromInput(BankAccountInput input, @MappingTarget BankAccount account);
+  void updateBankAccountFromInput(BankAccountInput accountDetails, @MappingTarget BankAccount account);
 
   BankAccountResponse toResponse(BankAccount account);
 }

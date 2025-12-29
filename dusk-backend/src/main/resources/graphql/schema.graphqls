@@ -22,8 +22,7 @@ type Card {
   id: ID!
   owner: User!   
   account: BankAccount!   
-  maskedCardNumber: String!
-  ownerName: String!
+  cardNumber: String!
   expiryDate: String!
   brand: String!
   isActive: Boolean!
@@ -46,19 +45,22 @@ type AuthPayload {
 }
 
 input CardInput {
-    ownerId: ID
-    accountId: ID
-    ownerAddress: String
-    billingAddress: String
-    brand: String
+  cardId: ID
+  ownerId: ID
+  accountId: ID
+  ownerAddress: String
+  billingAddress: String
+  brand: String
+  isActive: Boolean
 }
 
 input BankAccountInput {
+  accountId: ID
   name: String
-  ownerId: ID!
-  type: String!
+  ownerId: ID
+  type: String
   cardId: ID
-  currency: String!
+  currency: String
 }
 
 input SettingsInput {
@@ -66,6 +68,7 @@ input SettingsInput {
 }
 
 input UserInput {
+  id: ID!
   email: String
   password: String
   firstName: String
@@ -73,16 +76,18 @@ input UserInput {
   phoneNumber: String
   address: String
   billingAddress: String
+  birthDate: String
 }
 
 input RegisterInput {
-    email: String!
-    password: String!
-    firstName: String!
-    lastName: String!
-    phoneNumber: String!
-    address: String!
-    billingAddress: String!
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  phoneNumber: String!
+  address: String!
+  billingAddress: String!
+  birthDate: String!
 }
 
 input LoginInput {
