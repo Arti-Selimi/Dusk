@@ -1,0 +1,23 @@
+mutation Register($registerRequest: RegisterInput!) {
+  register(registerRequest: $registerRequest) {
+    token
+    user {
+      email
+      firstName
+      id
+      lastName
+    }
+  }
+}
+
+mutation Login($loginRequest: LoginInput!) {
+  login(loginRequest: $loginRequest) {
+    token
+    user {
+      email
+      firstName
+      id
+      lastName
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.container {
+  background-color: green;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+  position: absolute;
+  z-index: 9999;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  width: 500px;
+  height: max-content;
+  padding: .5rem;
+  border-radius: 15px;
+  font-size: .75rem;
+
+  .messageContainer {
+    display: flex;
+    flex: 10;
+  }
+  .closeContainer, .iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+}
+
+.error {
+  background-color: red;
+}
+
+.warning {
+  background-color: orange;
+}
+
+.fading {
+  opacity: 0;
+}
