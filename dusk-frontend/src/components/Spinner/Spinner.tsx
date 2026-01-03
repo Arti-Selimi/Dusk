@@ -1,5 +1,5 @@
 import { SpinnerProps } from "@/types/types";
-import styles from "./spinner.module.scss"
+import styles from "./spinner.module.css"
 
 export function Spinner({ size = 24, color = '#555' }: SpinnerProps) {
   return (

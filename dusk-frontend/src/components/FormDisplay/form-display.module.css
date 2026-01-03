@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  padding: 100px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: $background;
+  color: $white;
+  flex: 1;
+  overflow: hidden;
+  
+  .textbox {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    h1 {
+      color: var(--accent);
+    }
+  }
+}
+
+.roulette {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  .firstCard {
+    scale: 1.1;
+  }
+}

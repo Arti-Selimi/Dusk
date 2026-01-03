@@ -1,19 +1,20 @@
 'use client'
 
 import { useLoginMutation } from "@/generated/graphql"
-import { Field, Form, Formik } from "formik"
 import { loginValues } from "../../types/types"
-import { Spinner } from "@/components/Spinner/Spinner"
 import { useToast } from "@/components/ToastProvider/ToastProvider"
 import { useAuth } from "@/lib/zustand/provider"
 import { useRouter } from "next/navigation"
+import { FormDisplay } from "@/components/FormDisplay/FromDisplay"
+import { BasicForm } from "@/components/RegisterForm/RegisterForm"
+import styles from "../Register/page.module.css"
 
 const Login = (): React.ReactElement => {
   const [login, { loading }] = useLoginMutation()
   const { addToast } = useToast()
   const router = useRouter()
 
-  if (useAuth.getState().isLoggedIn) router.push("/")
+  if (useAuth.getState().isLoggedIn || localStorage.getItem('token') !== "") router.push("/")
   const onSubmit = async (values: loginValues): Promise<void> => {
     await login({
       variables: {
@@ -38,22 +39,9 @@ const Login = (): React.ReactElement => {
   }
 
   return (
-    <div>
-      <Formik
-        initialValues={{
-          email: '',
-          password: '',
-        }}
-        onSubmit={async (values) => onSubmit(values)}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <Field name="email" type="email" placeholder="Email" />
-            <Field name="password" type="password" placeholder="Password" />
-            <button type="submit" disabled={isSubmitting}>{loading ? (<Spinner size={20} />) : "Log in"}</button>
-          </Form>
-        )}
-      </Formik>
+    <div className={styles.registerContainer}>
+      <FormDisplay />
+      <BasicForm onSubmit={onSubmit} loading={loading} type="login" />
     </div>
   )
 }

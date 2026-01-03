@@ -1,0 +1,29 @@
+.main {
+  display: flex;
+  color: var(--white);
+  background: var(--accent);
+  border-radius: 5px;
+  font-size: 1.25rem;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.1;
+  }
+}
+
+.contact {
+  border-radius: 0;
+  width: 80%;
+  background: var(--primary);
+}
+
+.scrollTo {
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.form {
+  background: var(--primary);
+}

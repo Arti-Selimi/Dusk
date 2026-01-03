@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import classNames from "classnames"
-import styles from "./notification.module.scss"
+import styles from "./notification.module.css"
 import { Ban, BookAlert, CircleCheckBig, CircleX } from "lucide-react"
 
 interface Props {

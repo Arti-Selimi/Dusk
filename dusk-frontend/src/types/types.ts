@@ -9,8 +9,8 @@ export interface registerValues {
   firstName: string
   lastName: string
   address: string
-  billingAddress: string
   phoneNumber: string
+  birthDate: string
 }
 
 export type SpinnerProps = {
@@ -18,4 +18,13 @@ export type SpinnerProps = {
   color?: string;
 };
 
-
+export interface MainButtonProps {
+  onClick?: <T>(input: T) => T | void
+  type?: "main" | "contact" | "scrollTo" | "form"
+  content: string
+  width?: string
+  padding?: string
+  loading?: boolean
+  htmlType: "submit" | "button"
+  disabled?: boolean
+}

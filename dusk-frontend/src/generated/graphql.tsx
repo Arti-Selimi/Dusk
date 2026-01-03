@@ -34,28 +34,31 @@ export type BankAccount = {
 };
 
 export type BankAccountInput = {
+  accountId?: InputMaybe<Scalars['ID']['input']>;
   cardId?: InputMaybe<Scalars['ID']['input']>;
-  currency: Scalars['String']['input'];
+  currency?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  ownerId: Scalars['ID']['input'];
-  type: Scalars['String']['input'];
+  ownerId?: InputMaybe<Scalars['ID']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Card = {
   __typename?: 'Card';
-  billingAddress: Scalars['String']['output'];
+  account: BankAccount;
   brand: Scalars['String']['output'];
-  cardNumber: Scalars['ID']['output'];
-  cvv: Scalars['Int']['output'];
+  cardNumber: Scalars['String']['output'];
+  expiryDate: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  isActive: Scalars['Boolean']['output'];
   owner: User;
-  ownerAddress: Scalars['String']['output'];
 };
 
 export type CardInput = {
   accountId?: InputMaybe<Scalars['ID']['input']>;
   billingAddress?: InputMaybe<Scalars['String']['input']>;
   brand?: InputMaybe<Scalars['String']['input']>;
+  cardId?: InputMaybe<Scalars['ID']['input']>;
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
   ownerAddress?: InputMaybe<Scalars['String']['input']>;
   ownerId?: InputMaybe<Scalars['ID']['input']>;
 };
@@ -67,13 +70,14 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  /** # updateCard(cardDetails: CardInput!): Card! */
   createBankAccount?: Maybe<BankAccount>;
   createCard?: Maybe<Card>;
-  /** #updateBankAccount(accountDetails: BankAccountInput!): BankAccount! */
   createSettings?: Maybe<Settings>;
   login: AuthPayload;
   register: AuthPayload;
+  updateBankAccount?: Maybe<BankAccount>;
+  updateCard?: Maybe<Card>;
+  updateUser?: Maybe<User>;
 };
 
 
@@ -99,6 +103,21 @@ export type MutationLoginArgs = {
 
 export type MutationRegisterArgs = {
   registerRequest: RegisterInput;
+};
+
+
+export type MutationUpdateBankAccountArgs = {
+  accountDetails: BankAccountInput;
+};
+
+
+export type MutationUpdateCardArgs = {
+  cardDetails: CardInput;
+};
+
+
+export type MutationUpdateUserArgs = {
+  userDetails: UserInput;
 };
 
 export type Query = {
@@ -140,6 +159,7 @@ export type QueryUserArgs = {
 export type RegisterInput = {
   address: Scalars['String']['input'];
   billingAddress: Scalars['String']['input'];
+  birthDate: Scalars['String']['input'];
   email: Scalars['String']['input'];
   firstName: Scalars['String']['input'];
   lastName: Scalars['String']['input'];
@@ -165,10 +185,26 @@ export type SettingsInput = {
 
 export type User = {
   __typename?: 'User';
+  address?: Maybe<Scalars['String']['output']>;
+  billingAddress?: Maybe<Scalars['String']['output']>;
+  birthDate?: Maybe<Scalars['String']['output']>;
   email: Scalars['String']['output'];
   firstName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   lastName: Scalars['String']['output'];
+  phoneNumber?: Maybe<Scalars['String']['output']>;
+};
+
+export type UserInput = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  billingAddress?: InputMaybe<Scalars['String']['input']>;
+  birthDate?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type RegisterMutationVariables = Exact<{
