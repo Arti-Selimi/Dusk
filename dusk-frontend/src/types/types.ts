@@ -9,22 +9,39 @@ export interface registerValues {
   firstName: string
   lastName: string
   address: string
+  billingAddress: string
   phoneNumber: string
   birthDate: string
 }
 
-export type SpinnerProps = {
-  size?: number;
-  color?: string;
-};
+export interface PriceProps {
+  title: string
+  value: string
+}
+
+export interface MessageBubbleProps {
+  side: "left" | "right"
+  content: string
+}
+
+export interface PackageProps {
+  title: string
+  price: string
+}
 
 export interface MainButtonProps {
-  onClick?: <T>(input: T) => T | void
-  type?: "main" | "contact" | "scrollTo" | "form"
+  onClick?: () => void
+  type: "contact" | "scrollTo" | "form" | "main"
   content: string
   width?: string
   padding?: string
   loading?: boolean
-  htmlType: "submit" | "button"
   disabled?: boolean
+  fontSize?: string
+  htmlType: "submit" | "button"
+}
+
+export interface SpinnerProps {
+  size: number
+  color?: string
 }

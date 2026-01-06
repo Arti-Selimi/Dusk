@@ -24,34 +24,41 @@ export const BasicForm = ({ onSubmit, loading, type }: Props) => {
           billingAddress: '',
           phoneNumber: '',
           birthDate: '',
+          verifyPassword: ''
         }}
         onSubmit={async (values) => onSubmit(values)}
       >
-        {({ isSubmitting }) => (
-          <Form className={styles.form}>
-            <div className={styles.formNavi}>
-              <Link className={classNames(type === "register" && styles.active)} href={type === "register" ? "#" : "/Register"}>Register</Link>
-              <Link className={classNames(type === "login" && styles.active)} href={type === "login" ? "#" : "/Login"}>Login</Link>
-            </div>
-            {type === "register" && <div className={styles.name}>
-              <Field name="firstName" type="text" placeholder="First Name" />
-              <Field name="lastName" type="text" placeholder="Last Name" />
-            </div>}
-            <Field name="email" type="email" placeholder="Email" />
-            <div className={styles.name}>
-              <Field name="password" type="password" placeholder="Password" />
-              {type === "register" && <Field name="verify_password" type="password" placeholder="Verify password" />}
-            </div>
-            {type === "register" && (
-              <>
-                <Field name="address" type="text" placeholder="Address" />
-                <Field name="phoneNumber" type="text" placeholder="Phone Number" />
-                <Field name="birthDate" type="date" />
-              </>
-            )}
-            <MainButton disabled={isSubmitting || loading} htmlType="submit" type="form" content={type === "login" ? "Log in" : type === "register" ? "Register" : "Send"} loading={loading} />
-          </Form>
-        )
+        {({ isSubmitting, values }) => {
+          console.log(values)
+          console.log(values.password)
+          console.log(values.verifyPassword)
+          return (
+            <Form className={styles.form}>
+              <div className={styles.formNavi}>
+                <Link className={classNames(type === "register" && styles.active)} href={type === "register" ? "#" : "/Register"}>Register</Link>
+                <Link className={classNames(type === "login" && styles.active)} href={type === "login" ? "#" : "/Login"}>Login</Link>
+              </div>
+              {type === "register" && <div className={styles.name}>
+                <Field required name="firstName" type="text" placeholder="First Name" />
+                <Field required name="lastName" type="text" placeholder="Last Name" />
+              </div>}
+              <Field required name="email" type="email" placeholder="Email" />
+              <div className={styles.name}>
+                <Field required name="password" type="password" placeholder="Password" />
+                {type === "register" && <Field name="verifyPassword" type="password" placeholder="Verify password" />}
+              </div>
+              {type === "register" && values.password !== values.verifyPassword && <p className="error">Password does not match</p>}
+              {type === "register" && (
+                <>
+                  <Field required name="address" type="text" placeholder="Address" />
+                  <Field required name="phoneNumber" type="text" placeholder="Phone Number" />
+                  <Field required name="birthDate" type="date" />
+                </>
+              )}
+              <MainButton disabled={isSubmitting || loading || values.password !== values.verifyPassword} htmlType="submit" type="form" content={type === "login" ? "Log in" : type === "register" ? "Register" : "Send"} loading={loading} />
+            </Form>
+          )
+        }
         }
       </Formik >
     </div >

@@ -8,13 +8,16 @@ import { useRouter } from "next/navigation"
 import { FormDisplay } from "@/components/FormDisplay/FromDisplay"
 import { BasicForm } from "@/components/RegisterForm/RegisterForm"
 import styles from "../Register/page.module.css"
+import { useEffect } from "react"
 
 const Login = (): React.ReactElement => {
   const [login, { loading }] = useLoginMutation()
   const { addToast } = useToast()
   const router = useRouter()
 
-  if (useAuth.getState().isLoggedIn || localStorage.getItem('token') !== "") router.push("/")
+  useEffect(() => {
+    if (useAuth.getState().isLoggedIn && localStorage.getItem('token') !== "") router.push("/")
+  }, [])
   const onSubmit = async (values: loginValues): Promise<void> => {
     await login({
       variables: {

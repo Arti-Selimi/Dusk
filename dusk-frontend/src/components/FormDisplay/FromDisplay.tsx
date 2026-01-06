@@ -10,8 +10,8 @@ export const FormDisplay = () => {
         <Image
           src="/shared/formPlaceholder.svg"
           alt="placeholder"
-          width={200}
-          height={200}
+          width={300}
+          height={300}
         />
       </div>
       <div className={styles.textbox}>
@@ -19,7 +19,7 @@ export const FormDisplay = () => {
           CREATE YOUR <br /> ACCOUNT
         </h1>
         <p>
-          Start managing your money with clarity and confidence.
+          Start managing your money with clarity and <br /> confidence.
         </p>
       </div>
     </div>

@@ -1,10 +1,17 @@
 :root {
   --primary: #231452;
   --secondary: #270722;
+  --button-scrollTo: #270722;
   --accent: #FF5E74;
+  --green: #74B72E;
   --white: #F2F5FF;
   --black: #10030E;
+  --gray: #C2C4CC;
+  --accent-violet: #4754DA;
+
+  --homepage-shadow: 5px 5px 0 0 var(--black);
 }
+
 html,
 body {
   max-width: 100vw;
@@ -30,10 +37,37 @@ a {
   text-decoration: none;
 }
 
+.active {
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+}
+
 .container {
-  display:flex;
-  height: 100vh;
+  display: flex;
   width: 100vw;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  height: 160px;
+  width: 180px;
+  border-radius: 30px;
+  background: white;
+  padding: 20px;
+  color: var(--black);
+  box-shadow: var(--homepage-shadow);
+
+  h1 {
+    color: var(--accent-violet);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
