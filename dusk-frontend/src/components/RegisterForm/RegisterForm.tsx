@@ -29,9 +29,6 @@ export const BasicForm = ({ onSubmit, loading, type }: Props) => {
         onSubmit={async (values) => onSubmit(values)}
       >
         {({ isSubmitting, values }) => {
-          console.log(values)
-          console.log(values.password)
-          console.log(values.verifyPassword)
           return (
             <Form className={styles.form}>
               <div className={styles.formNavi}>
@@ -55,7 +52,7 @@ export const BasicForm = ({ onSubmit, loading, type }: Props) => {
                   <Field required name="birthDate" type="date" />
                 </>
               )}
-              <MainButton disabled={isSubmitting || loading || values.password !== values.verifyPassword} htmlType="submit" type="form" content={type === "login" ? "Log in" : type === "register" ? "Register" : "Send"} loading={loading} />
+              <MainButton disabled={isSubmitting || loading || (type === 'register' && values.password !== values.verifyPassword)} htmlType="submit" type="form" content={type === "login" ? "Log in" : type === "register" ? "Register" : "Send"} loading={loading}/>
             </Form>
           )
         }

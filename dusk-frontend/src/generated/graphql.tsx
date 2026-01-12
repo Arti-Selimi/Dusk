@@ -221,6 +221,66 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthPayload', token: string, user: { __typename?: 'User', email: string, firstName: string, id: string, lastName: string } } };
 
+export type BankAccountFieldsFragment = { __typename?: 'BankAccount', id: string, name: string, accountNumber: string, currency: string, status: string, type: string };
+
+export type BankAccountsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BankAccountsQuery = { __typename?: 'Query', bankAccounts: Array<{ __typename?: 'BankAccount', id: string, name: string, accountNumber: string, currency: string, status: string, type: string }> };
+
+export type BankAccountQueryVariables = Exact<{
+  accountId?: InputMaybe<Scalars['ID']['input']>;
+  cardId?: InputMaybe<Scalars['ID']['input']>;
+  ownerId?: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type BankAccountQuery = { __typename?: 'Query', bankAccount?: { __typename?: 'BankAccount', id: string, name: string, accountNumber: string, currency: string, status: string, type: string } | null };
+
+export type CreateBankAccountMutationVariables = Exact<{
+  accountDetails: BankAccountInput;
+}>;
+
+
+export type CreateBankAccountMutation = { __typename?: 'Mutation', createBankAccount?: { __typename?: 'BankAccount', id: string, name: string, accountNumber: string, currency: string, status: string, type: string } | null };
+
+export type UpdateBankAccountMutationVariables = Exact<{
+  accountDetails: BankAccountInput;
+}>;
+
+
+export type UpdateBankAccountMutation = { __typename?: 'Mutation', updateBankAccount?: { __typename?: 'BankAccount', id: string, name: string, accountNumber: string, currency: string, status: string, type: string } | null };
+
+export type CardFieldsFragment = { __typename?: 'Card', id: string, brand: string, cardNumber: string, expiryDate: string, isActive: boolean };
+
+export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllCardsQuery = { __typename?: 'Query', cards: Array<{ __typename?: 'Card', id: string, brand: string, cardNumber: string, expiryDate: string, isActive: boolean }> };
+
+export type GetCardQueryVariables = Exact<{
+  accountId?: InputMaybe<Scalars['ID']['input']>;
+  cardId?: InputMaybe<Scalars['ID']['input']>;
+  ownerId?: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type GetCardQuery = { __typename?: 'Query', card?: { __typename?: 'Card', id: string, brand: string, cardNumber: string, expiryDate: string, isActive: boolean } | null };
+
+export type CreateCardMutationVariables = Exact<{
+  cardDetails: CardInput;
+}>;
+
+
+export type CreateCardMutation = { __typename?: 'Mutation', createCard?: { __typename?: 'Card', id: string, brand: string, cardNumber: string, expiryDate: string, isActive: boolean } | null };
+
+export type UpdateCardMutationVariables = Exact<{
+  cardDetails: CardInput;
+}>;
+
+
+export type UpdateCardMutation = { __typename?: 'Mutation', updateCard?: { __typename?: 'Card', id: string, brand: string, cardNumber: string, expiryDate: string, isActive: boolean } | null };
+
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -231,7 +291,39 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, email: string, firstName: string, lastName: string } | null };
 
+export type GetUserByIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
 
+
+export type GetUserByIdQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, email: string, firstName: string, lastName: string, address?: string | null, billingAddress?: string | null, birthDate?: string | null, phoneNumber?: string | null } | null };
+
+export type UpdateUserMutationVariables = Exact<{
+  userDetails: UserInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', id: string, email: string, firstName: string, lastName: string, address?: string | null, billingAddress?: string | null, birthDate?: string | null, phoneNumber?: string | null } | null };
+
+export const BankAccountFieldsFragmentDoc = gql`
+    fragment BankAccountFields on BankAccount {
+  id
+  name
+  accountNumber
+  currency
+  status
+  type
+}
+    `;
+export const CardFieldsFragmentDoc = gql`
+    fragment CardFields on Card {
+  id
+  brand
+  cardNumber
+  expiryDate
+  isActive
+}
+    `;
 export const RegisterDocument = gql`
     mutation Register($registerRequest: RegisterInput!) {
   register(registerRequest: $registerRequest) {
@@ -274,6 +366,170 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const BankAccountsDocument = gql`
+    query BankAccounts {
+  bankAccounts {
+    ...BankAccountFields
+  }
+}
+    ${BankAccountFieldsFragmentDoc}`;
+export function useBankAccountsQuery(baseOptions?: Apollo.QueryHookOptions<BankAccountsQuery, BankAccountsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<BankAccountsQuery, BankAccountsQueryVariables>(BankAccountsDocument, options);
+      }
+export function useBankAccountsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BankAccountsQuery, BankAccountsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<BankAccountsQuery, BankAccountsQueryVariables>(BankAccountsDocument, options);
+        }
+// @ts-ignore
+export function useBankAccountsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<BankAccountsQuery, BankAccountsQueryVariables>): Apollo.UseSuspenseQueryResult<BankAccountsQuery, BankAccountsQueryVariables>;
+export function useBankAccountsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<BankAccountsQuery, BankAccountsQueryVariables>): Apollo.UseSuspenseQueryResult<BankAccountsQuery | undefined, BankAccountsQueryVariables>;
+export function useBankAccountsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<BankAccountsQuery, BankAccountsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<BankAccountsQuery, BankAccountsQueryVariables>(BankAccountsDocument, options);
+        }
+export type BankAccountsQueryHookResult = ReturnType<typeof useBankAccountsQuery>;
+export type BankAccountsLazyQueryHookResult = ReturnType<typeof useBankAccountsLazyQuery>;
+export type BankAccountsSuspenseQueryHookResult = ReturnType<typeof useBankAccountsSuspenseQuery>;
+export type BankAccountsQueryResult = Apollo.QueryResult<BankAccountsQuery, BankAccountsQueryVariables>;
+export const BankAccountDocument = gql`
+    query BankAccount($accountId: ID, $cardId: ID, $ownerId: ID) {
+  bankAccount(accountId: $accountId, cardId: $cardId, ownerId: $ownerId) {
+    ...BankAccountFields
+  }
+}
+    ${BankAccountFieldsFragmentDoc}`;
+export function useBankAccountQuery(baseOptions?: Apollo.QueryHookOptions<BankAccountQuery, BankAccountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<BankAccountQuery, BankAccountQueryVariables>(BankAccountDocument, options);
+      }
+export function useBankAccountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BankAccountQuery, BankAccountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<BankAccountQuery, BankAccountQueryVariables>(BankAccountDocument, options);
+        }
+// @ts-ignore
+export function useBankAccountSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<BankAccountQuery, BankAccountQueryVariables>): Apollo.UseSuspenseQueryResult<BankAccountQuery, BankAccountQueryVariables>;
+export function useBankAccountSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<BankAccountQuery, BankAccountQueryVariables>): Apollo.UseSuspenseQueryResult<BankAccountQuery | undefined, BankAccountQueryVariables>;
+export function useBankAccountSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<BankAccountQuery, BankAccountQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<BankAccountQuery, BankAccountQueryVariables>(BankAccountDocument, options);
+        }
+export type BankAccountQueryHookResult = ReturnType<typeof useBankAccountQuery>;
+export type BankAccountLazyQueryHookResult = ReturnType<typeof useBankAccountLazyQuery>;
+export type BankAccountSuspenseQueryHookResult = ReturnType<typeof useBankAccountSuspenseQuery>;
+export type BankAccountQueryResult = Apollo.QueryResult<BankAccountQuery, BankAccountQueryVariables>;
+export const CreateBankAccountDocument = gql`
+    mutation CreateBankAccount($accountDetails: BankAccountInput!) {
+  createBankAccount(accountDetails: $accountDetails) {
+    ...BankAccountFields
+  }
+}
+    ${BankAccountFieldsFragmentDoc}`;
+export type CreateBankAccountMutationFn = Apollo.MutationFunction<CreateBankAccountMutation, CreateBankAccountMutationVariables>;
+export function useCreateBankAccountMutation(baseOptions?: Apollo.MutationHookOptions<CreateBankAccountMutation, CreateBankAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateBankAccountMutation, CreateBankAccountMutationVariables>(CreateBankAccountDocument, options);
+      }
+export type CreateBankAccountMutationHookResult = ReturnType<typeof useCreateBankAccountMutation>;
+export type CreateBankAccountMutationResult = Apollo.MutationResult<CreateBankAccountMutation>;
+export type CreateBankAccountMutationOptions = Apollo.BaseMutationOptions<CreateBankAccountMutation, CreateBankAccountMutationVariables>;
+export const UpdateBankAccountDocument = gql`
+    mutation UpdateBankAccount($accountDetails: BankAccountInput!) {
+  updateBankAccount(accountDetails: $accountDetails) {
+    ...BankAccountFields
+  }
+}
+    ${BankAccountFieldsFragmentDoc}`;
+export type UpdateBankAccountMutationFn = Apollo.MutationFunction<UpdateBankAccountMutation, UpdateBankAccountMutationVariables>;
+export function useUpdateBankAccountMutation(baseOptions?: Apollo.MutationHookOptions<UpdateBankAccountMutation, UpdateBankAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateBankAccountMutation, UpdateBankAccountMutationVariables>(UpdateBankAccountDocument, options);
+      }
+export type UpdateBankAccountMutationHookResult = ReturnType<typeof useUpdateBankAccountMutation>;
+export type UpdateBankAccountMutationResult = Apollo.MutationResult<UpdateBankAccountMutation>;
+export type UpdateBankAccountMutationOptions = Apollo.BaseMutationOptions<UpdateBankAccountMutation, UpdateBankAccountMutationVariables>;
+export const GetAllCardsDocument = gql`
+    query GetAllCards {
+  cards {
+    ...CardFields
+  }
+}
+    ${CardFieldsFragmentDoc}`;
+export function useGetAllCardsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCardsQuery, GetAllCardsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllCardsQuery, GetAllCardsQueryVariables>(GetAllCardsDocument, options);
+      }
+export function useGetAllCardsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCardsQuery, GetAllCardsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllCardsQuery, GetAllCardsQueryVariables>(GetAllCardsDocument, options);
+        }
+// @ts-ignore
+export function useGetAllCardsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllCardsQuery, GetAllCardsQueryVariables>): Apollo.UseSuspenseQueryResult<GetAllCardsQuery, GetAllCardsQueryVariables>;
+export function useGetAllCardsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllCardsQuery, GetAllCardsQueryVariables>): Apollo.UseSuspenseQueryResult<GetAllCardsQuery | undefined, GetAllCardsQueryVariables>;
+export function useGetAllCardsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllCardsQuery, GetAllCardsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllCardsQuery, GetAllCardsQueryVariables>(GetAllCardsDocument, options);
+        }
+export type GetAllCardsQueryHookResult = ReturnType<typeof useGetAllCardsQuery>;
+export type GetAllCardsLazyQueryHookResult = ReturnType<typeof useGetAllCardsLazyQuery>;
+export type GetAllCardsSuspenseQueryHookResult = ReturnType<typeof useGetAllCardsSuspenseQuery>;
+export type GetAllCardsQueryResult = Apollo.QueryResult<GetAllCardsQuery, GetAllCardsQueryVariables>;
+export const GetCardDocument = gql`
+    query GetCard($accountId: ID, $cardId: ID, $ownerId: ID) {
+  card(accountId: $accountId, cardId: $cardId, ownerId: $ownerId) {
+    ...CardFields
+  }
+}
+    ${CardFieldsFragmentDoc}`;
+export function useGetCardQuery(baseOptions?: Apollo.QueryHookOptions<GetCardQuery, GetCardQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCardQuery, GetCardQueryVariables>(GetCardDocument, options);
+      }
+export function useGetCardLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCardQuery, GetCardQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCardQuery, GetCardQueryVariables>(GetCardDocument, options);
+        }
+// @ts-ignore
+export function useGetCardSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetCardQuery, GetCardQueryVariables>): Apollo.UseSuspenseQueryResult<GetCardQuery, GetCardQueryVariables>;
+export function useGetCardSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetCardQuery, GetCardQueryVariables>): Apollo.UseSuspenseQueryResult<GetCardQuery | undefined, GetCardQueryVariables>;
+export function useGetCardSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetCardQuery, GetCardQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetCardQuery, GetCardQueryVariables>(GetCardDocument, options);
+        }
+export type GetCardQueryHookResult = ReturnType<typeof useGetCardQuery>;
+export type GetCardLazyQueryHookResult = ReturnType<typeof useGetCardLazyQuery>;
+export type GetCardSuspenseQueryHookResult = ReturnType<typeof useGetCardSuspenseQuery>;
+export type GetCardQueryResult = Apollo.QueryResult<GetCardQuery, GetCardQueryVariables>;
+export const CreateCardDocument = gql`
+    mutation CreateCard($cardDetails: CardInput!) {
+  createCard(cardDetails: $cardDetails) {
+    ...CardFields
+  }
+}
+    ${CardFieldsFragmentDoc}`;
+export type CreateCardMutationFn = Apollo.MutationFunction<CreateCardMutation, CreateCardMutationVariables>;
+export function useCreateCardMutation(baseOptions?: Apollo.MutationHookOptions<CreateCardMutation, CreateCardMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCardMutation, CreateCardMutationVariables>(CreateCardDocument, options);
+      }
+export type CreateCardMutationHookResult = ReturnType<typeof useCreateCardMutation>;
+export type CreateCardMutationResult = Apollo.MutationResult<CreateCardMutation>;
+export type CreateCardMutationOptions = Apollo.BaseMutationOptions<CreateCardMutation, CreateCardMutationVariables>;
+export const UpdateCardDocument = gql`
+    mutation UpdateCard($cardDetails: CardInput!) {
+  updateCard(cardDetails: $cardDetails) {
+    ...CardFields
+  }
+}
+    ${CardFieldsFragmentDoc}`;
+export type UpdateCardMutationFn = Apollo.MutationFunction<UpdateCardMutation, UpdateCardMutationVariables>;
+export function useUpdateCardMutation(baseOptions?: Apollo.MutationHookOptions<UpdateCardMutation, UpdateCardMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateCardMutation, UpdateCardMutationVariables>(UpdateCardDocument, options);
+      }
+export type UpdateCardMutationHookResult = ReturnType<typeof useUpdateCardMutation>;
+export type UpdateCardMutationResult = Apollo.MutationResult<UpdateCardMutation>;
+export type UpdateCardMutationOptions = Apollo.BaseMutationOptions<UpdateCardMutation, UpdateCardMutationVariables>;
 export const GetAllUsersDocument = gql`
     query getAllUsers {
   users {
@@ -332,3 +588,58 @@ export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeSuspenseQueryHookResult = ReturnType<typeof useMeSuspenseQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const GetUserByIdDocument = gql`
+    query GetUserById($id: ID!) {
+  user(id: $id) {
+    id
+    email
+    firstName
+    lastName
+    address
+    billingAddress
+    birthDate
+    phoneNumber
+  }
+}
+    `;
+export function useGetUserByIdQuery(baseOptions: Apollo.QueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables> & ({ variables: GetUserByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+      }
+export function useGetUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+        }
+// @ts-ignore
+export function useGetUserByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export function useGetUserByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetUserByIdQuery | undefined, GetUserByIdQueryVariables>;
+export function useGetUserByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+        }
+export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
+export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
+export type GetUserByIdSuspenseQueryHookResult = ReturnType<typeof useGetUserByIdSuspenseQuery>;
+export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export const UpdateUserDocument = gql`
+    mutation updateUser($userDetails: UserInput!) {
+  updateUser(userDetails: $userDetails) {
+    id
+    email
+    firstName
+    lastName
+    address
+    billingAddress
+    birthDate
+    phoneNumber
+  }
+}
+    `;
+export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
+export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
+      }
+export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;

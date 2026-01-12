@@ -70,6 +70,48 @@ a {
   }
 }
 
+.RowLayout {
+  width: 100vw;
+  background: var(--primary);
+  display: flex;
+  min-height: 100vh;
+  height: 100%;
+
+  .info,
+  .form {
+    min-height: 100vh;
+    height: 100%;
+    border-left: 2px solid var(--white);
+    flex: 1;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    background: var(--accent);
+    height: 100%;
+
+    .form_header {
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 30px;
+      flex: 1;
+      background: var(--primary);
+    }
+  }
+}
+
+.accent {
+  color: var(--accent);
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

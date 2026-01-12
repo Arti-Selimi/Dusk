@@ -11,6 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.dusk.security.JwtAuthFilter;
@@ -45,11 +46,10 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers(new AntPathRequestMatcher("/graphql/**")).permitAll()
             .requestMatchers(new AntPathRequestMatcher("/graphiql/**")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/graphql/**")).permitAll()
             .anyRequest().authenticated())
-        .addFilterBefore(jwtAuthFilter,
-            org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
   }
 }

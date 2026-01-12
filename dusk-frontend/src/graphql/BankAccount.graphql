@@ -1,0 +1,40 @@
+fragment BankAccountFields on BankAccount {
+  id
+  name
+  accountNumber
+  currency
+  status
+  type
+}
+
+query BankAccounts {
+  bankAccounts {
+    ...BankAccountFields
+  }
+}
+
+query BankAccount(
+  $accountId: ID
+  $cardId: ID
+  $ownerId: ID
+) {
+  bankAccount(
+    accountId: $accountId
+    cardId: $cardId
+    ownerId: $ownerId
+  ) {
+    ...BankAccountFields
+  }
+}
+
+mutation CreateBankAccount($accountDetails: BankAccountInput!) {
+  createBankAccount(accountDetails: $accountDetails) {
+    ...BankAccountFields
+  }
+}
+
+mutation UpdateBankAccount($accountDetails: BankAccountInput!) {
+  updateBankAccount(accountDetails: $accountDetails) {
+    ...BankAccountFields
+  }
+}

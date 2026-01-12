@@ -26,7 +26,7 @@ public class UserService {
 
     if (authentication == null || !authentication.isAuthenticated()
         || authentication.getPrincipal().equals("anonymousUser")) {
-      throw new RuntimeException("User not found");
+      throw new RuntimeException("Authenticated User not found");
     }
 
     String email = authentication.getName();

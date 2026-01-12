@@ -45,3 +45,20 @@ export interface SpinnerProps {
   size: number
   color?: string
 }
+
+export type TabType = "User Details" | "Settings" | "Cards" | "Bank Accounts"
+
+export type TabsArrayType = Array<{
+  icon: React.ReactNode
+  name: TabType
+}>
+
+export type EditableFieldKey =
+  | "firstName"
+  | "lastName"
+  | "birthDate"
+  | "email"
+  | "phoneNumber"
+  | "address"
+  | "billingAddress"
+

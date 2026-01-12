@@ -6,20 +6,25 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import styles from "./navbar.module.css"
 import { useAuth } from "@/lib/zustand/provider"
-import { User } from "lucide-react"
+import { CreateSelect } from "../CreateSelect/CreateSelect"
+import { UserDropdown } from "../User/UserDropdown"
 
-export const Navbar = ({ active }: { active: string }) => {
+export const Navbar = ({ active, row }: { active: string, row: boolean }) => {
   const router = useRouter()
-  console.log(useAuth.getState().isLoggedIn)
   return (
-    <div className={styles.navbar}>
+    <div className={row ? styles.horizontalNav : styles.navbar}>
       <Logo />
       <div className={styles.links}>
         <Link className={active === "home" ? "active" : ""} href={"/"}> Home </Link>
         <Link className={active === "about" ? "active" : ""} href={"/About"}> About </Link>
         <Link className={active === "contact" ? "active" : ""} href={"/Contact"}> Contact </Link>
+        {useAuth.getState().isLoggedIn && <CreateSelect row={row} active={active} />}
       </div>
-      {useAuth.getState().isLoggedIn ? <User style={{color: "var(--accent)"}}/> : <MainButton type="main" onClick={() => router.push("/Register")} content="Sign up" htmlType="button" />}
+      {row
+        ? ""
+        : useAuth.getState().isLoggedIn
+          ? <UserDropdown />
+          : <MainButton type="main" onClick={() => router.push("/Register")} content="Sign up" htmlType="button" />}
     </div>
   )
 }
