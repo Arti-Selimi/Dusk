@@ -1,0 +1,64 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--primary);
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.valueRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.valueRow svg {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.15s ease;
+}
+
+.valueRow svg:hover {
+  opacity: 1;
+}
+
+.editRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.editRow input {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 2px solid var(--accent);
+  font-size: 14px;
+  outline: none;
+  background-color: var(--white);
+  color: var(--primary);
+}
+
+.editRow svg {
+  cursor: pointer;
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+.editRow svg:hover {
+  opacity: 1;
+}

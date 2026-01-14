@@ -1,0 +1,39 @@
+fragment CardFields on Card {
+  id
+  brand
+  cardNumber
+  expiryDate
+  isActive
+}
+
+query GetAllCards {
+  cards {
+    ...CardFields
+  }
+}
+
+query GetCard(
+  $accountId: ID
+  $cardId: ID
+  $ownerId: ID
+) {
+  card(
+    accountId: $accountId
+    cardId: $cardId
+    ownerId: $ownerId
+  ) {
+    ...CardFields
+  }
+}
+
+mutation CreateCard($cardDetails: CardInput!) {
+  createCard(cardDetails: $cardDetails) {
+    ...CardFields
+  }
+}
+
+mutation UpdateCard($cardDetails: CardInput!) {
+  updateCard(cardDetails: $cardDetails) {
+    ...CardFields
+  }
+}

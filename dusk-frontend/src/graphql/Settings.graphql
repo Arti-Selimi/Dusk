@@ -1,0 +1,12 @@
+query Settings ($id: ID!) {
+    settings(ownerId: $id) {
+        analyticsEnabled
+        darkMode
+        emailNotifications
+        id
+        language
+        pushNotifications
+        reduceMotion
+        timezone
+      }
+  }

@@ -1,0 +1,43 @@
+query getAllUsers {
+  users{
+    id
+    email
+    firstName
+    lastName
+  }
+}
+
+query Me {
+  me {
+    id
+    email
+    firstName
+    lastName
+  }
+}
+
+query GetUserById($id: ID!) {
+  user(id: $id) {
+    id
+    email
+    firstName
+    lastName
+    address
+    billingAddress
+    birthDate
+    phoneNumber
+  }
+}
+
+mutation updateUser($userDetails: UserInput!) {
+  updateUser(userDetails: $userDetails) {
+    id
+    email
+    firstName
+    lastName
+    address
+    billingAddress
+    birthDate
+    phoneNumber
+  }
+}

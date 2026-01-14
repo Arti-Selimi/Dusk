@@ -1,0 +1,74 @@
+.header {
+  display: flex;
+  padding: 100px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+
+  .textBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    flex: 1;
+    color: var(--black);
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    p {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+  }
+
+  .imageContainer {
+    display: flex;
+    flex: 1;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  padding: 50px 100px;
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: 10px;
+    padding: 2px;
+    flex: 1;
+    height: min-content;
+
+    .menuItem {
+      all: unset;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      border: 1px solid transparent;
+
+      &:hover {
+        background: var(--accent);
+      }
+    }
+
+    .activeMenu {
+      border: 1px solid var(--accent);
+      background-color: color-mix(in srgb, var(--accent), transparent 70%);
+    }
+  }
+}
