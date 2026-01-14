@@ -1,6 +1,6 @@
-import Image from "next/image"
-import { CardRoulette } from "./CardRoulette"
-import styles from "./form-display.module.css"
+import Image from "next/image";
+import { CardRoulette } from "./CardRoulette";
+import styles from "./form-display.module.css";
 
 export const FormDisplay = () => {
   return (
@@ -23,5 +23,5 @@ export const FormDisplay = () => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};

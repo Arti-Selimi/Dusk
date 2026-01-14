@@ -1,3 +1,5 @@
+import { Settings } from "@/generated/graphql"
+
 export interface loginValues {
   email: string
   password: string
@@ -53,12 +55,7 @@ export type TabsArrayType = Array<{
   name: TabType
 }>
 
-export type EditableFieldKey =
-  | "firstName"
-  | "lastName"
-  | "birthDate"
-  | "email"
-  | "phoneNumber"
-  | "address"
-  | "billingAddress"
+export type EditableValue = string | number | boolean | Date | null | undefined
+
+export type EditableFieldType = "text" | "number" | "switch" | "email" | "date"
 

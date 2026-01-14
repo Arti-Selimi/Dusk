@@ -3,15 +3,17 @@
 
 import styles from "./page.module.css"
 import { User, CreditCard, Wallet, Settings } from "lucide-react"
-import { useGetUserByIdQuery } from "@/generated/graphql"
+import { Settings as SettingsType, useGetCardQuery, useGetUserByIdQuery, useSettingsQuery } from "@/generated/graphql"
 import { Spinner } from "@/components/Spinner/Spinner"
-import { useParams } from "next/navigation"
+import { useParams, useSearchParams } from "next/navigation"
 import { Navbar } from "@/components/Navbar/Navbar"
 import Image from "next/image"
 import { useState } from "react"
 import type { TabsArrayType, TabType } from "@/types/types"
 import classNames from "classnames"
 import { UserDetailsTab } from "@/components/DetailTabs/UserDetailsTab"
+import { SettingsTab } from "@/components/DetailTabs/SettingsTab"
+import { CardDetailsTab } from "@/components/DetailTabs/CardDetailsTab"
 
 const tabs: TabsArrayType = [
   {
@@ -35,22 +37,23 @@ const tabs: TabsArrayType = [
 
 
 const UserDetails = () => {
-  const [currentTab, setCurrentTab] = useState<TabType>("User Details")
   const { id } = useParams<{ id: string }>()
+  const searchParams = useSearchParams()
+  const selection = searchParams.get("selection") as TabType | null
+  const [currentTab, setCurrentTab] = useState<TabType>(selection ? selection : "User Details")
   const { data, loading } = useGetUserByIdQuery({ variables: { id } })
+  const { data: settingsData } = useSettingsQuery({ variables: { id } })
+  const { data: cardData } = useGetCardQuery({ variables: { ownerId: id } })
   if (loading) return <Spinner size={30} />
-  if (!data?.user) return <div>User not found</div>
+  if (!data?.user || !settingsData?.settings) return <div>User not found</div>
 
   const user = data.user
 
   const tabComponent: Record<TabType, React.ReactNode> = {
     "User Details": <UserDetailsTab user={user} />,
-    "Settings": <UserDetailsTab user={user} />,
-    "Cards": <UserDetailsTab user={user} />,
+    "Settings": <SettingsTab settings={settingsData.settings as SettingsType} />,
+    "Cards": <CardDetailsTab card={cardData?.card} />,
     "Bank Accounts": <UserDetailsTab user={user} />,
-    // "Settings": <SettingsTab />,
-    // "Cards": <CardTab />,
-    // "Bank Accounts": <BankAccountTab />
   }
 
   return (

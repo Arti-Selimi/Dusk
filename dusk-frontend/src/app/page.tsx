@@ -10,7 +10,7 @@ import { Packages } from "@/components/Packages/Packages"
 export default function Home() {
   return (
     <div className="container">
-      <Navbar active="home" />
+      <Navbar active="home" row={false} />
       <div className={styles.hero}>
         <div className={styles.textbox}>
           <h1>Smart Banking For Freelancers</h1>
@@ -23,7 +23,6 @@ export default function Home() {
           </p>
           <Link href={"/Register"} >
             <MainButton type="scrollTo" content="Register Now" htmlType="button" fontSize="1.5em" />
-
           </Link>
         </div>
         <div className={styles.phoneContainer} >
@@ -33,7 +32,7 @@ export default function Home() {
       <HomeInfo>
         <Packages />
       </HomeInfo>
-   </div>
+    </div>
   );
 }
 

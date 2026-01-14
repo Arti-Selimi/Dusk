@@ -281,6 +281,13 @@ export type UpdateCardMutationVariables = Exact<{
 
 export type UpdateCardMutation = { __typename?: 'Mutation', updateCard?: { __typename?: 'Card', id: string, brand: string, cardNumber: string, expiryDate: string, isActive: boolean } | null };
 
+export type SettingsQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type SettingsQuery = { __typename?: 'Query', settings?: { __typename?: 'Settings', analyticsEnabled?: boolean | null, darkMode?: boolean | null, emailNotifications?: boolean | null, id: string, language?: string | null, pushNotifications?: boolean | null, reduceMotion?: boolean | null, timezone?: string | null } | null };
+
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -530,6 +537,39 @@ export function useUpdateCardMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateCardMutationHookResult = ReturnType<typeof useUpdateCardMutation>;
 export type UpdateCardMutationResult = Apollo.MutationResult<UpdateCardMutation>;
 export type UpdateCardMutationOptions = Apollo.BaseMutationOptions<UpdateCardMutation, UpdateCardMutationVariables>;
+export const SettingsDocument = gql`
+    query Settings($id: ID!) {
+  settings(ownerId: $id) {
+    analyticsEnabled
+    darkMode
+    emailNotifications
+    id
+    language
+    pushNotifications
+    reduceMotion
+    timezone
+  }
+}
+    `;
+export function useSettingsQuery(baseOptions: Apollo.QueryHookOptions<SettingsQuery, SettingsQueryVariables> & ({ variables: SettingsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SettingsQuery, SettingsQueryVariables>(SettingsDocument, options);
+      }
+export function useSettingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SettingsQuery, SettingsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SettingsQuery, SettingsQueryVariables>(SettingsDocument, options);
+        }
+// @ts-ignore
+export function useSettingsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<SettingsQuery, SettingsQueryVariables>): Apollo.UseSuspenseQueryResult<SettingsQuery, SettingsQueryVariables>;
+export function useSettingsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SettingsQuery, SettingsQueryVariables>): Apollo.UseSuspenseQueryResult<SettingsQuery | undefined, SettingsQueryVariables>;
+export function useSettingsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SettingsQuery, SettingsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SettingsQuery, SettingsQueryVariables>(SettingsDocument, options);
+        }
+export type SettingsQueryHookResult = ReturnType<typeof useSettingsQuery>;
+export type SettingsLazyQueryHookResult = ReturnType<typeof useSettingsLazyQuery>;
+export type SettingsSuspenseQueryHookResult = ReturnType<typeof useSettingsSuspenseQuery>;
+export type SettingsQueryResult = Apollo.QueryResult<SettingsQuery, SettingsQueryVariables>;
 export const GetAllUsersDocument = gql`
     query getAllUsers {
   users {

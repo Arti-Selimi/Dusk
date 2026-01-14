@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, cache } from "react"
 import {
   User,
   Settings,
@@ -12,10 +12,13 @@ import styles from "./user-dropdown.module.css"
 import Link from "next/link"
 import { useMeQuery } from "@/generated/graphql"
 import { Spinner } from "../Spinner/Spinner"
+import { useAuth } from "@/lib/zustand/provider"
+import client from "@/lib/apollo"
 
 export const UserDropdown = () => {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
+  const logout = useAuth(state => state.logout)
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -30,6 +33,12 @@ export const UserDropdown = () => {
   const { data, loading } = useMeQuery()
 
   if (loading) return <Spinner size={25} />
+
+  const handleLogOut = () => {
+    localStorage.clear()
+    logout()
+    client.cache.reset()
+  }
 
   return (
     <div className={styles.wrapper} ref={ref}>
@@ -55,7 +64,7 @@ export const UserDropdown = () => {
           </Link>
 
           <Link
-            href="/settings"
+            href={`/user/${data?.me?.id ?? ''}/settings`}
             className={styles.menuItem}
             role="menuitem"
             onClick={() => setOpen(false)}
@@ -87,17 +96,18 @@ export const UserDropdown = () => {
           <div className={styles.divider} />
 
           <Link
-            href="/login"
+            href="/Login"
             className={`${styles.menuItem} ${styles.danger}`}
             role="menuitem"
-            onClick={() => localStorage.clear()}
+            onClick={() => handleLogOut()}
           >
             <LogOut size={16} />
             Log out
           </Link>
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   )
 }
 
