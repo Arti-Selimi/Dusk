@@ -64,11 +64,11 @@ public class User implements UserDetails {
   @Column(name = "birth_date", nullable = false)
   private LocalDateTime birthDate;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "account")
   private BankAccount account;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "card")
   private Card card;
 
@@ -90,25 +90,4 @@ public class User implements UserDetails {
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return List.of();
   }
-
-  @Override
-  public boolean isAccountNonExpired() {
-    return true;
-  }
-
-  @Override
-  public boolean isAccountNonLocked() {
-    return true;
-  }
-
-  @Override
-  public boolean isCredentialsNonExpired() {
-    return true;
-  }
-
-  @Override
-  public boolean isEnabled() {
-    return true;
-  }
-
 }

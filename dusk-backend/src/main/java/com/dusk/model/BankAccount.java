@@ -45,7 +45,7 @@ public class BankAccount {
   @Enumerated(EnumType.STRING)
   private AccountStatus status;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "card_id")
   private Card card;
 

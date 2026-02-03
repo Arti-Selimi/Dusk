@@ -16,6 +16,7 @@ type BankAccount {
   type: String!
   status: String!
   currency: String!
+  balance: Float!
 }
 
 type Card {
@@ -42,6 +43,40 @@ type Settings {
 type AuthPayload {
   token: String!
   user: User!
+}
+
+type Membership {
+  id: ID!
+  userId: ID!
+  name: String!
+  membershipType: String!
+  maxAccounts: Int!
+  maxCards: Int!
+  isPaid: Boolean!
+  isActive: Boolean!
+  startDate: String!
+  expiryDate: String!
+}
+
+type Transaction {
+  id: ID!
+  accountId: ID!
+  userId: ID!
+  amount: Float!
+  balanceBefore: Float!
+  balanceAfter: Float!
+  transactionType: String!
+  description: String
+  createdAt: String!
+}
+
+input MembershipInput {
+  id: ID
+  userId: ID!
+  name: String!
+  type: String!
+  isPaid: Boolean
+  isActive: Boolean
 }
 
 input CardInput {
@@ -93,7 +128,14 @@ input RegisterInput {
 input LoginInput {
     email: String!
     password: String!
-}  
+}
+
+input UpdateBalanceInput {
+  accountId: ID!
+  amount: Float!
+  transactionType: String!
+  description: String
+}
 
 type Query {
   users: [User!]!
@@ -103,7 +145,11 @@ type Query {
   bankAccounts: [BankAccount!]!
   bankAccount(accountId: ID, ownerId: ID, cardId: ID): BankAccount
   settings(ownerId: ID!): Settings
+  membership(id: ID!): Membership
+  membershipByUser(userId: ID!): [Membership!]! 
   me: User
+  transactionsByUser(userId: ID!): [Transaction!]!
+  transactionsByAccount(accountId: ID!): [Transaction!]!
 }
 
 type Mutation {
@@ -111,9 +157,13 @@ type Mutation {
   updateCard(cardDetails: CardInput!): Card
   createBankAccount(accountDetails: BankAccountInput!): BankAccount
   updateBankAccount(accountDetails: BankAccountInput!): BankAccount
+  updateBalance(balanceInput: UpdateBalanceInput!): Transaction
   createSettings(settingsDetails: SettingsInput!): Settings
   updateUser(userDetails: UserInput!): User
   login(loginRequest: LoginInput!): AuthPayload!
   register(registerRequest: RegisterInput!): AuthPayload!
+  createMembership(membershipDetails: MembershipInput!): Membership
+  updateMembership(membershipDetails: MembershipInput!): Membership
+  deActivateMembership(id: ID!): Membership
 }
 
