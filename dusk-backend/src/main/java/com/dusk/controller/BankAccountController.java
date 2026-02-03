@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.dusk.service.BankAccountService;
 import com.dusk.dtos.BankAccountInput;
 import com.dusk.dtos.BankAccountResponse;
+import com.dusk.dtos.TransactionResponse;
+import com.dusk.dtos.UpdateBalanceInput;
 import com.dusk.model.BankAccount;
 
 @Controller
@@ -47,5 +49,20 @@ public class BankAccountController {
   @MutationMapping
   public BankAccountResponse updateBankAccount(@Argument BankAccountInput accountDetails) {
     return bankAccountService.updateBankAccount(accountDetails);
+  }
+
+  @MutationMapping
+  public TransactionResponse updateBalance(@Argument UpdateBalanceInput balanceInput) {
+    return bankAccountService.updateBalance(balanceInput);
+  }
+
+  @QueryMapping
+  public List<TransactionResponse> transactionsByUser(@Argument Long userId) {
+    return bankAccountService.getTransactionsByUserId(userId);
+  }
+
+  @QueryMapping
+  public List<TransactionResponse> transactionsByAccount(@Argument Long accountId) {
+    return bankAccountService.getTransactionsByAccountId(accountId);
   }
 }

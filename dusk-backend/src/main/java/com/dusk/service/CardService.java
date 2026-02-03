@@ -1,9 +1,11 @@
 package com.dusk.service;
 
 import com.dusk.model.Card;
+import com.dusk.model.Memberships;
 import com.dusk.model.User;
 import com.dusk.model.BankAccount;
 import com.dusk.repository.CardRepository;
+import com.dusk.repository.MembershipsRepository;
 import com.dusk.repository.UserRepository;
 import com.dusk.repository.BankAccountRepository;
 
@@ -25,12 +27,21 @@ public class CardService {
   private final UserRepository userRepository;
   private final BankAccountRepository accountRepository;
   private final CardMapper cardMapper;
+  private final MembershipsRepository membershipsRepository;
 
   public Card createCard(CardInput cardDetails) {
     User user = userRepository.findById(cardDetails.ownerId())
         .orElseThrow(() -> new RuntimeException("user not found"));
     BankAccount bankAccount = accountRepository.findById(cardDetails.accountId())
         .orElseThrow(() -> new RuntimeException("account not found"));
+    List<Memberships> memberships = membershipsRepository.findByUser_Id(user.getId());
+
+    for (Memberships membership : memberships) {
+      if(membership.isActive() && membership.getMembershipType().equals("Primary") && cardRepository.countByOwner_Id(user.getId()) >= membership.getMaxAccounts()) {
+        throw new RuntimeException("Maximum number of cards reached for this membership");
+      }
+    }
+
     Card card = Card.builder()
         .owner(user)
         .ownerAddress(cardDetails.ownerAddress())
