@@ -2,8 +2,8 @@
 "use client"
 
 import styles from "./page.module.css"
-import { User, CreditCard, Wallet, Settings } from "lucide-react"
-import { Settings as SettingsType, useGetCardQuery, useGetUserByIdQuery, useSettingsQuery } from "@/generated/graphql"
+import { User, CreditCard, Wallet, Settings, ReceiptText } from "lucide-react"
+import { Settings as SettingsType, useBankAccountQuery, useGetCardQuery, useGetUserByIdQuery, useSettingsQuery } from "@/generated/graphql"
 import { Spinner } from "@/components/Spinner/Spinner"
 import { useParams, useSearchParams } from "next/navigation"
 import { Navbar } from "@/components/Navbar/Navbar"
@@ -14,6 +14,8 @@ import classNames from "classnames"
 import { UserDetailsTab } from "@/components/DetailTabs/UserDetailsTab"
 import { SettingsTab } from "@/components/DetailTabs/SettingsTab"
 import { CardDetailsTab } from "@/components/DetailTabs/CardDetailsTab"
+import { AccountDetailsTab } from "@/components/DetailTabs/AccountDetailsTab"
+import { TransactionsTab } from "@/components/DetailTabs/TransactionsTab"
 
 const tabs: TabsArrayType = [
   {
@@ -31,6 +33,10 @@ const tabs: TabsArrayType = [
   {
     icon: <Wallet />,
     name: "Bank Accounts"
+  },
+  {
+    icon: <ReceiptText />,
+    name: "Transactions"
   }
 ]
 
@@ -44,6 +50,7 @@ const UserDetails = () => {
   const { data, loading } = useGetUserByIdQuery({ variables: { id } })
   const { data: settingsData } = useSettingsQuery({ variables: { id } })
   const { data: cardData } = useGetCardQuery({ variables: { ownerId: id } })
+  const { data: accountData } = useBankAccountQuery({ variables: { ownerId: id } })
   if (loading) return <Spinner size={30} />
   if (!data?.user || !settingsData?.settings) return <div>User not found</div>
 
@@ -53,7 +60,8 @@ const UserDetails = () => {
     "User Details": <UserDetailsTab user={user} />,
     "Settings": <SettingsTab settings={settingsData.settings as SettingsType} />,
     "Cards": <CardDetailsTab card={cardData?.card} />,
-    "Bank Accounts": <UserDetailsTab user={user} />,
+    "Bank Accounts": <AccountDetailsTab account={accountData?.bankAccount} />,
+    "Transactions": <TransactionsTab userId={user.id} accountId={accountData?.bankAccount?.id} />
   }
 
   return (

@@ -1,0 +1,23 @@
+fragment Transaction on Transaction {
+  id
+  userId
+  accountId
+  amount
+  balanceAfter
+  balanceBefore
+  createdAt
+  description
+  transactionType
+}
+
+query transactionsByUser($userId: ID!) {
+  transactionsByUser(userId: $userId) {
+    ...Transaction
+  }
+}
+
+query transactionsByAccount($accountId: ID!) {
+  transactionsByAccount(accountId: $accountId) {
+    ...Transaction
+  }
+}

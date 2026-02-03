@@ -1,0 +1,42 @@
+fragment membership on Membership {
+  id
+  name
+  startDate
+  userId
+  isPaid
+  maxAccounts
+  maxCards
+  expiryDate
+  membershipType
+  isActive
+}
+
+query getMembershipById($id: ID!) {
+  membership(id: $id) {
+    ...membership
+  }
+}
+
+query getMembershipByUserId($userId: ID!) {
+  membershipByUser(userId: $userId) {
+  ...membership
+  }
+}
+
+mutation createMembership($membershipDetails: MembershipInput!) {
+  createMembership(membershipDetails: $membershipDetails) {
+  ...membership
+  }
+}
+
+mutation updateMembership($membershipDetails: MembershipInput!) {
+  updateMembership(membershipDetails: $membershipDetails) {
+    ...membership
+  }
+}
+
+mutation deActivateMembership($id: ID!) {
+  deActivateMembership(id: $id) {
+    ...membership
+  }
+}

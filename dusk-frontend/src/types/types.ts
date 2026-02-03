@@ -48,7 +48,7 @@ export interface SpinnerProps {
   color?: string
 }
 
-export type TabType = "User Details" | "Settings" | "Cards" | "Bank Accounts"
+export type TabType = "User Details" | "Settings" | "Cards" | "Bank Accounts" | "Transactions"
 
 export type TabsArrayType = Array<{
   icon: React.ReactNode
@@ -59,3 +59,16 @@ export type EditableValue = string | number | boolean | Date | null | undefined
 
 export type EditableFieldType = "text" | "number" | "switch" | "email" | "date"
 
+export type MembershipTier = "BASIC" | "PREMIUM"
+
+export interface MembershipPlan {
+  id: string
+  tier: MembershipTier
+  name: string
+  price: number
+  billingCycle: "monthly" | "yearly"
+  features: string[]
+  maxAccounts: number
+  maxCards: number
+  highlighted?: boolean
+}

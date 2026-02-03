@@ -47,7 +47,7 @@ export const CreateSelect = ({ row, active = "Account" }: { row?: boolean, activ
                 key={option}
                 type="button"
                 className={classNames(styles.item, active === option && styles.active)}
-                onClick={() => router.push(`/Create/${option}`)}
+                onClick={() => router.push(`/create/${option}`)}
               >
                 {option}
               </button>

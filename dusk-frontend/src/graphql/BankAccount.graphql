@@ -5,6 +5,7 @@ fragment BankAccountFields on BankAccount {
   currency
   status
   type
+  balance
 }
 
 query BankAccounts {
@@ -36,5 +37,11 @@ mutation CreateBankAccount($accountDetails: BankAccountInput!) {
 mutation UpdateBankAccount($accountDetails: BankAccountInput!) {
   updateBankAccount(accountDetails: $accountDetails) {
     ...BankAccountFields
+  }
+}
+
+mutation UpdateBalance($balanceInput: UpdateBalanceInput!) {
+  updateBalance(balanceInput: $balanceInput) {
+    ...Transaction
   }
 }

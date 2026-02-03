@@ -1,0 +1,528 @@
+.pageContainer {
+  width: 100%;
+  max-width: 1200px;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--white);
+}
+
+.header p {
+  color: var(--gray);
+  font-size: 1.1rem;
+}
+
+.billingToggle {
+  display: inline-flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.cycleButton {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--white);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.cycleButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cycleButton.active {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.saveBadge {
+  font-size: 0.7rem;
+  background: var(--green);
+  color: var(--white);
+  padding: 0.125rem 0.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.currentMembershipBanner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--accent-violet), var(--accent));
+  color: var(--white);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.bannerContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.bannerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bannerInfo h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.bannerInfo p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.9;
+  font-size: 0.9rem;
+}
+
+.membershipStats {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+.membershipStats span {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.paid {
+  background: rgba(116, 183, 46, 0.3) !important;
+}
+
+.unpaid {
+  background: rgba(255, 94, 116, 0.3) !important;
+}
+
+.cancelButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--white);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.cancelButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.plansGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.planCard {
+  position: relative;
+  padding: 2rem;
+  background: var(--white);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: var(--black);
+}
+
+.planCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.planCard.highlighted {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent), 0 8px 16px rgba(255, 94, 116, 0.2);
+}
+
+.planCard.currentPlan {
+  background: color-mix(in srgb, var(--white), var(--accent-violet) 10%);
+}
+
+.popularBadge,
+.currentBadge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 1rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.popularBadge {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.currentBadge {
+  background: var(--green);
+  color: var(--white);
+}
+
+.planHeader {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.planIcon {
+  display: inline-flex;
+  padding: 0.75rem;
+  background: color-mix(in srgb, var(--accent-violet), transparent 85%);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  color: var(--accent-violet);
+}
+
+.planName {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--black);
+}
+
+.planPrice {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.125rem;
+}
+
+.currency {
+  font-size: 1.25rem;
+  color: var(--black);
+}
+
+.amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.cycle {
+  color: var(--gray);
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--gray), transparent 50%);
+  font-size: 0.9rem;
+}
+
+.featureItem.limitation {
+  color: var(--gray);
+}
+
+.selectButton {
+  width: 100%;
+  padding: 0.875rem;
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.selectButton:hover:not(.disabled) {
+  background: color-mix(in srgb, var(--accent), var(--black) 15%);
+}
+
+.selectButton.disabled {
+  background: var(--gray);
+  color: var(--black);
+  cursor: not-allowed;
+}
+
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  color: var(--white);
+  gap: 1rem;
+}
+
+.notLoggedIn {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: var(--white);
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal {
+  position: relative;
+  background: var(--white);
+  border-radius: 16px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  color: var(--black);
+}
+
+.modalClose {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--gray);
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: color 0.2s ease;
+}
+
+.modalClose:hover {
+  color: var(--black);
+}
+
+.modalHeader {
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--gray), transparent 50%);
+}
+
+.modalHeader h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.modalHeader p {
+  margin: 0;
+  color: var(--gray);
+}
+
+.modalContent {
+  padding: 1.5rem;
+}
+
+.modalPlanDetails {
+  background: color-mix(in srgb, var(--accent-violet), transparent 90%);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.modalPlanRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.modalPlanRow:not(:last-child) {
+  border-bottom: 1px solid color-mix(in srgb, var(--gray), transparent 70%);
+}
+
+.modalPlanRow span {
+  color: var(--gray);
+}
+
+.modalPlanRow strong {
+  color: var(--black);
+}
+
+.insufficientBalance {
+  color: var(--accent) !important;
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: color-mix(in srgb, var(--accent), transparent 85%);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.modalInfo {
+  background: color-mix(in srgb, var(--gray), transparent 80%);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.modalInfo p {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+
+.modalInfo ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.modalInfo li {
+  padding: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--black);
+}
+
+.modalActions {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+.modalCancelButton,
+.modalConfirmButton {
+  flex: 1;
+  padding: 0.875rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.modalCancelButton {
+  background: transparent;
+  border: 1px solid var(--gray);
+  color: var(--black);
+}
+
+.modalCancelButton:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--gray), transparent 80%);
+}
+
+.modalConfirmButton {
+  background: var(--accent);
+  border: none;
+  color: var(--white);
+}
+
+.modalConfirmButton:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent), var(--black) 15%);
+}
+
+.modalConfirmButton:disabled {
+  background: var(--gray);
+  cursor: not-allowed;
+}
+
+.modalCancelButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .currentMembershipBanner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cancelButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .billingToggle {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .cycleButton {
+    justify-content: center;
+  }
+}

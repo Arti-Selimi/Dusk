@@ -31,6 +31,15 @@ export const Navbar = ({ active, row }: { active: string; row: boolean }) => {
           Contact{" "}
         </Link>
         {useAuth.getState().isLoggedIn && (
+          <Link
+            className={active === "memberships" ? "active" : ""}
+            href={"/Memberships"}
+          >
+            {" "}
+            Memberships{" "}
+          </Link>
+        )}
+        {useAuth.getState().isLoggedIn && (
           <CreateSelect row={row} active={active} />
         )}
       </div>
